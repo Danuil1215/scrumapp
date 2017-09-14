@@ -1,0 +1,80 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <head>
+        <script type="text/javascript">
+            function handleDrop(event, ui) {
+                var droppedCar = ui.draggable;
+
+                droppedCar.fadeOut('fast');
+            }
+        </script>
+    </head>
+    <body>
+
+        <ui:composition template="./Templates/scrumapp_template.xhtml">
+
+            <ui:define name="top">
+                <h1>ScrumApp</h1>
+                <h4>Be the difference</h4>
+            </ui:define>
+
+            <ui:define name="content">
+                <b:form style="height: 80%;" >
+                    <b:tabView>
+                        <b:tab title="Backlog">
+                            <b:form inline="true">
+                                <b:button value="Agregar Tarea" look="success"/>
+                                <b:button value="Modificar Tarea" look="warning"/>
+                                <b:button value="Eliminar Tarea" look="danger"/>
+                            </b:form>
+                        </b:tab>
+                        <b:tab title="Sprint" >
+                            <b:form horizontal="true">
+                                <p:fieldset legend="Tareas por Hacer">
+                                    <p:dataGrid id="avariablework" var="work" columns="1">
+                                        <p:panel id="pnl" header="#{work.id}" style="text-align:center">
+                                            <p:panelGrid columns="1" style="width:100%">
+
+                                            </p:panelGrid>
+                                        </p:panel>
+                                        <p:draggable for="pnl" revert="true" handle=".ui-panel-titlebar" stack=".ui-panel"/>
+                                    </p:dataGrid>
+                                </p:fieldset>
+                                <p:fieldset legend="Sprint Planing">
+                                    <p:dataGrid id="sprinttodo" var="todo" columns="1">
+                                        <p:panel id="pnl1" header="#{todo.id}" style="text-align:center">
+                                            <p:panelGrid columns="1" style="width:100%">
+
+                                            </p:panelGrid>
+                                        </p:panel>
+                                        <p:draggable for="pnl" revert="true" handle=".ui-panel-titlebar" stack=".ui-panel"/>
+                                    </p:dataGrid>
+                                    <p:droppable for="avariablework" tolerance="touch" activeStyleClass="ui-state-highlight" datasource="avariablework" onDrop="handleDrop">
+                                        
+                                    </p:droppable>
+                                </p:fieldset>
+                            </b:form>
+                        </b:tab>
+                        <b:tab title="Sprints Anteriores">
+
+                        </b:tab>
+                        <b:tab title="Tareas Finalizadas">
+
+                        </b:tab>
+
+                    </b:tabView>
+                </b:form>
+            </ui:define>
+
+            <ui:define name="bottom">
+                bottom
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
